@@ -1,0 +1,36 @@
+{
+  "name": "@mconnect/cache",
+  "version": "0.1.1",
+  "description": "Cache data operations",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --recursive --timeout 5000 --reporter mochawesome"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abbeymart/cache.git"
+  },
+  "keywords": [
+    "cache",
+    "cache hash",
+    "store",
+    "save",
+    "read",
+    "query"
+  ],
+  "author": "Abi Akindele [abbeymart | mconnect.biz]",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abbeymart/cache/issues"
+  },
+  "homepage": "https://github.com/abbeymart/cache#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "mochawesome": "^3.1.1"
+  },
+  "dependencies": {}
+}
