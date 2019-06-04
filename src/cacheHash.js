@@ -1,5 +1,5 @@
 /**
- * @Author: abbeymart | Abi Akindele | @Created: 2019-05-19 | @Updated: 2019-05-22
+ * @Author: abbeymart | Abi Akindele | @Created: 2019-05-19 | @Updated: 2019-06-03
  * @Company: mConnect.biz | @License: MIT
  * @Description: mc-cache-hash
  */
@@ -57,7 +57,7 @@ module.exports = {
         }
     },
 
-    deleteCache(key = '', hashKey = '', by = 'hashKey') {
+    deleteCache(key = '', hashKey = '') {
         try {
             // validate params, at least one is required
             if (!key && !hashKey) return false;
@@ -67,16 +67,20 @@ module.exports = {
             hashKey = hashKey.toString();
 
             // cases: available/deleted (by key/hashKey), not-available/not-deleted
-            if (key && by === 'key') {
-                // delete by key
-                delete mcCacheHash[key];
-                return true;
+            if (key && hashKey) {
+                // delete by hashKey
+                if (mcCacheHash[key] && mcCacheHash[key][hashKey]) {
+                    delete mcCacheHash[key][hashKey];
+                    return true;
+                }
             }
 
-            if (key && hashKey && by === 'hashKey') {
-                // delete by hashKey
-                delete mcCacheHash[key][hashKey];
-                return true;
+            if (key) {
+                // delete by key
+                if (mcCacheHash[key]) {
+                    delete mcCacheHash[key];
+                    return true;
+                }
             }
 
             return false;
