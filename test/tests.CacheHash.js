@@ -1,5 +1,5 @@
 /**
- * @Author: abbeymart | Abi Akindele | @Created: 2019-05-21 | @Updated: 2019-05-21
+ * @Author: abbeymart | Abi Akindele | @Created: 2019-05-21 | @Updated: 2019-06-09
  * @Company: mConnect.biz | @License: MIT
  * @Description: @mconnect/cache testing, hash cache
  */
@@ -58,8 +58,10 @@ suite('@mconnect/cacheHash package Testing: ', () => {
             expiryTime     = 2;
             const setCache = cacheHash.setCache(cacheKey, hashInfo, expiryTime);
             let res;
+            // console.log('before-timeout-setCache: ', setCache);
             if (setCache) {
                 res = cacheHash.getCache(cacheKey, hashKey)['value'];
+                // console.log('before-timeout-res: ', res);
             }
             ok(JSON.stringify(res) === JSON.stringify(cacheValue), `response should be: ${JSON.stringify(cacheValue)}`);
         });
@@ -68,6 +70,25 @@ suite('@mconnect/cacheHash package Testing: ', () => {
             const res = cacheHash.getCache(cacheKey, hashKey);
             // console.log('timeout-value: ', res);
             ok(res === null, `response should be: null`);
+        });
+        test('should set and return valid cacheValue, for different hashKey', () => {
+            cacheValue     = {
+                firstName: "Abi",
+                lastName : 'Akindele',
+            };
+            cacheKey       = {test: 'new-hash-key'};
+            hashInfo       = {
+                key  : cacheKey,
+                value: cacheValue,
+            };
+            const setCache = cacheHash.setCache(cacheKey, hashInfo, expiryTime);
+            console.log('new-setCache: ', setCache);
+            let res;
+            if (setCache) {
+                res = cacheHash.getCache(cacheKey, cacheKey)['value'];
+                console.log('get-cache-res: ', res);
+            }
+            ok(JSON.stringify(res) === JSON.stringify(cacheValue), `response should be: ${JSON.stringify(cacheValue)}`);
         });
     });
 });

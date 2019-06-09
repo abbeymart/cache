@@ -1,5 +1,10 @@
 # Historical logs
 
+## Version 0.2.0
+- Released June 09, 2019
+- Resolved the toString and function variables issues
+- Used function scope variables and used JSON.stringify() to clone key-value pairs
+
 ## Version 0.1.2
 - Released June 03, 2019
 - Fixed the deleteCache missing cases for the cacheHash

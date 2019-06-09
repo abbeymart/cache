@@ -1,10 +1,10 @@
 /**
- * @Author: abbeymart | Abi Akindele | @Created: 2019-05-19 | @Updated: 2019-05-22
+ * @Author: abbeymart | Abi Akindele | @Created: 2019-05-19 | @Updated: 2019-06-09
  * @Company: mConnect.biz | @License: MIT
  * @Description: mc-cache
  */
 
-let mcCache           = {};
+let mcCache = {};
 
 module.exports = {
     setCache(key = '', value = '', expire = 300) {
@@ -13,8 +13,8 @@ module.exports = {
             if (!key || !value) return false;
 
             // stringify key-params
-            key      = key.toString();
-            mcCache[key] = {
+            const mainKey    = JSON.stringify(key);
+            mcCache[mainKey] = {
                 'value' : value,
                 'expire': Date.now() + expire * 1000,
             };
@@ -31,15 +31,15 @@ module.exports = {
             if (!key) return null;
 
             // stringify key-params
-            key      = key.toString();
+            const mainKey = JSON.stringify(key);
 
             // cases: valid/not-expired, expired, not available/unknown
-            if (mcCache[key] && mcCache[key]['expire'] > Date.now()) {
-                return mcCache[key];
+            if (mcCache[mainKey] && mcCache[mainKey]['expire'] > Date.now()) {
+                return mcCache[mainKey];
             }
 
-            if (mcCache[key]) {
-                delete mcCache[key];
+            if (mcCache[mainKey]) {
+                delete mcCache[mainKey];
             }
 
             return null;
@@ -55,11 +55,11 @@ module.exports = {
             if (!key) return false;
 
             // stringify key-params
-            key      = key.toString();
+            const mainKey = JSON.stringify(key);
 
             // cases: available/deleted, not-available/not-deleted
-            if (mcCache[key]) {
-                delete mcCache[key];
+            if (mcCache[mainKey]) {
+                delete mcCache[mainKey];
                 return true;
             }
 
